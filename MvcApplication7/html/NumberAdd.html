@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+	<script src="/Scripts/jquery-2.1.1.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		
+		$(function() {
+			$('#add-numbers-form').bind('submit', function(ev) {
+				ev.preventDefault();
+
+				$.ajax({
+					url: $(this).attr('action'),
+					data: $(this).serialize(),
+					method: 'post',
+					success: function(result) {
+						var $form = $('#add-numbers-form');
+						$form.find('tbody').append('<tr class="test"><td>'+$form.find('input[name=toaddnumber]').val()+'</td><td>'+result+'</td></tr>')
+					}
+				});
+
+			});
+		});
+	</script>
+</head>
+<body>
+<form action="/api/AddNumbers" method="post" class="numbers-form" id="add-numbers-form">
+<table>
+<thead>
+<tr>
+<td>Number</td>
+<td><input type="text" name="basenumber" value="3" /></td>
+</tr>
+</thead>
+<tbody>
+<tr class="test">
+<td>4</td>
+<td>7</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td><input type="text" name="toaddnumber"/></td>
+<td><input type="submit" value="Add"/></td>
+</tr>
+</tfoot>
+</table>
+</form>
+</body>
+</html>
